@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DjangoGirls (mostly) Offline</title>
+
+    <link rel="stylesheet" href="https://brntn.me/static/css/brntn.css">
+
+    <style>
+        .container {
+            max-width: 50em;
+        }
+
+        ul {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to DjangoGirls at {{ organisation }}</h1>
+
+        <p>
+            Please use the links below to download files from our local network (this will be much faster in most cases)
+        </p>
+
+        {% if slack %}
+        <p>
+            We're on Slack! <a href="{{ slack }}">Request an invite</a> and chat with the other participants and mentors.
+        </p>
+        {% endif %}
+
+        {% for section in resources %}
+        <section>
+            <h2>{{ section.name }}</h2>
+                <div class="grid">
+                    {% for item in section.section_items %}
+                    <div class="col-1-3">
+                    <h3>{{ item.name }}</h3>
+                    <ul>
+                        {% for download in item.downloads %}
+                        <li><a href="{{ download.url }}">{{ download.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+        </section>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
