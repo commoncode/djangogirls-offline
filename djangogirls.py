@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 from subprocess import run, Popen
 
 from jinja2 import Environment, PackageLoader
 
 from finders.atom import atom
-from finders.py35 import py35
+from finders.py35 import py35, cheatsheet
 from finders.git import git
 from finders.vscode import vscode
 from finders.bootstrap import bootstrap
@@ -24,6 +25,7 @@ DJANGOGIRLS_RESOURCES = [{
     'finders': [
         ('Python 3.5', py35),
         ('Git', git),
+        ('Python Cheatsheet', cheatsheet),
     ]
 }, {
     'name': 'Editors',
@@ -71,16 +73,17 @@ def django_docs():
     }
 
 
-def djangogirls():
-    run(['git', 'clone', 'https://github.com/DjangoGirls/tutorial.git'])
+def djangogirls(skip_build=False):
+    if not skip_build:
+        run(['git', 'clone', 'https://github.com/DjangoGirls/tutorial.git'])
 
-    install = Popen(['../node_modules/.bin/gitbook', 'install'], cwd='tutorial')
-    install.wait()
+        install = Popen(['../node_modules/.bin/gitbook', 'install'], cwd='tutorial')
+        install.wait()
 
-    build = Popen(['../node_modules/.bin/gitbook', 'build', '.'], cwd='tutorial')
-    build.wait()
+        build = Popen(['../node_modules/.bin/gitbook', 'build', '.'], cwd='tutorial')
+        build.wait()
 
-    run(['mv', 'tutorial/_book', os.path.join(DOWNLOAD_BASE, 'docs', 'djangogirls')])
+        run(['mv', 'tutorial/_book', os.path.join(DOWNLOAD_BASE, 'docs', 'djangogirls')])
     return {
         'name': 'Django Girls Tutorial',
         'downloads': [{
@@ -118,7 +121,7 @@ def main():
     # do the documentation manually
     documentation = {'name': 'Documentation', 'section_items': []}
     documentation['section_items'].extend([
-        djangogirls(),
+        djangogirls(skip_build='--skip-tutorial' in sys.argv),
         django_docs(),
         python35(),
     ])
