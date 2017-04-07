@@ -8,19 +8,24 @@ There are still online components to the tutorial that will require internet acc
 
 ## Getting Started
 
-Ensure that you have Python 3, curl, gitbook, gitbook-cli, and git.
+Ensure that you have Python 3.5, curl, gitbook-cli, and git.
 
 ```
 sudo apt-get install npm
 sudo apt-get install nodejs-legacy
 sudo npm install yarn
-sudo yarn global add gitbook-cli
+
+cd djangogirls-offline
+yarn install
 ```
 
 You should use a virtualenvironment with Jinja2 and requests.
+From the `djangogirls-offline` directory:
 
 ```
-./djangogirls.py
+python3 -m venv myvenv
+source myvenv/bin/activate
+pip install jinja2 requests
 ```
 
 
