@@ -13,6 +13,7 @@ from finders.vscode import vscode
 from finders.bootstrap import bootstrap
 from finders.sublime import sublime
 from finders.gedit import gedit
+from finders import docs
 
 
 DOWNLOAD_BASE = 'www'
@@ -53,77 +54,15 @@ def download_url(url, target_path):
     return target_path
 
 
-def django_docs():
-    outdir = os.path.join(DOWNLOAD_BASE, 'docs/django-1.10')
-
-    path = download_url('https://docs.djangoproject.com/m/docs/django-docs-1.10-en.zip', 'docs/django-docs-1.10-en.zip')
-    os.makedirs(outdir, exist_ok=True)
-    run(['unzip', '-o', path, '-d', outdir])
-
-    return {
-        'name': 'Django 1.10',
-        'downloads': [{
-                'name': 'View Online',
-                'url': outdir.replace(DOWNLOAD_BASE, ''),
-            }, {
-                'name': 'Download',
-                'url': path.replace(DOWNLOAD_BASE, ''),
-            }
-        ]
-    }
-
-
-def djangogirls(skip_build=False):
-    if not skip_build:
-        run(['git', 'clone', 'https://github.com/DjangoGirls/tutorial.git'])
-
-        install = Popen(['../node_modules/.bin/gitbook', 'install'], cwd='tutorial')
-        install.wait()
-
-        build = Popen(['../node_modules/.bin/gitbook', 'build', '.'], cwd='tutorial')
-        build.wait()
-
-        run(['mv', 'tutorial/_book', os.path.join(DOWNLOAD_BASE, 'docs', 'djangogirls')])
-    return {
-        'name': 'Django Girls Tutorial',
-        'downloads': [{
-            'name': 'View Online',
-            'url': 'docs/djangogirls/en/',
-        }]
-    }
-
-
-def python35():
-    download_url(
-        'https://docs.python.org/3.5/archives/python-3.5.3-docs-html.tar.bz2',
-        os.path.join('python', 'python-3.5.3-docs-html.tar.bz2')
-    )
-
-    outdir = os.path.join(DOWNLOAD_BASE, 'docs/python-35')
-    os.makedirs(outdir, exist_ok=True)
-    run(['tar', '-xf', os.path.join(DOWNLOAD_BASE, 'python', 'python-3.5.3-docs-html.tar.bz2'), '-C', outdir])
-
-    return {
-        'name': 'Python 3.5',
-        'downloads': [{
-            'name': 'View Online',
-            'url': 'docs/python-35/python-3.5.3-docs-html/'
-        }, {
-            'name': 'Download',
-            'url': os.path.join('python', 'python-3.5.3-docs-html.tar.bz2'),
-        }]
-    }
-
-
 def main():
     resources = []
 
     # do the documentation manually
     documentation = {'name': 'Documentation', 'section_items': []}
     documentation['section_items'].extend([
-        djangogirls(skip_build='--skip-tutorial' in sys.argv),
-        django_docs(),
-        python35(),
+        docs.djangogirls(skip_build='--skip-tutorial' in sys.argv),
+        docs.django(),
+        docs.python35(),
     ])
     resources.append(documentation)
 
