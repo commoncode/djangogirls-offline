@@ -11,6 +11,7 @@ There are still online components to the tutorial that will require internet acc
 Ensure that you have Python 3.5, curl, gitbook-cli, and git.
 
 ```
+sudo apt-get install git unzip
 sudo apt-get install npm
 sudo apt-get install nodejs-legacy
 sudo npm install yarn

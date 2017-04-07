@@ -56,7 +56,7 @@ def django_docs():
 
     path = download_url('https://docs.djangoproject.com/m/docs/django-docs-1.10-en.zip', 'docs/django-docs-1.10-en.zip')
     os.makedirs(outdir, exist_ok=True)
-    run(['tar', '-xf', path, '-C', outdir])
+    run(['unzip', '-o', path, '-d', outdir])
 
     return {
         'name': 'Django 1.10',
