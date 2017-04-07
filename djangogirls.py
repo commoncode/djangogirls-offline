@@ -73,7 +73,7 @@ def django_docs():
 
 def djangogirls():
     run(['git', 'clone', 'https://github.com/DjangoGirls/tutorial.git'])
-    
+
     install = Popen(['../node_modules/.bin/gitbook', 'install'], cwd='tutorial')
     install.wait()
 

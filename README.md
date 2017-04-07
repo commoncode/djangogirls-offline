@@ -29,6 +29,24 @@ source myvenv/bin/activate
 pip install jinja2 requests
 ```
 
+We recommend using nginx as your web server.
+
+```
+sudo apt-get install nginx
+sudo chgrp -R www-data /home/ubuntu/djangogirls-offline/www/
+```
+
+Then modify `/etc/nginx/sites-enabled/default` to look like:
+
+```
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /home/ubuntu/djangogirls-offline/www/;
+    index index.html;
+}
+```
 
 ## What's Downloaded
 
