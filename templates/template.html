@@ -21,17 +21,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to DjangoGirls at {{ organisation }}</h1>
+        <div class="grid">
+            <h1>Welcome to DjangoGirls at {{ organisation }}</h1>
 
-        <p>
-            Please use the links below to download files from our local network (this will be much faster in most cases)
-        </p>
+            <p>
+                Please use the links below to download files from our local network (this will be much faster in most cases)
+            </p>
 
-        {% if slack %}
-        <p>
-            We're on Slack! <a href="{{ slack }}">Request an invite</a> and chat with the other participants and mentors.
-        </p>
-        {% endif %}
+            {% if slack %}
+            <p>
+                We're on Slack! <a href="{{ slack }}">Request an invite</a> and chat with the other participants and mentors.
+            </p>
+            {% endif %}
+        </div>
 
         {% for section in resources %}
         <section>

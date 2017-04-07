@@ -73,8 +73,13 @@ def django_docs():
 
 def djangogirls():
     run(['git', 'clone', 'https://github.com/DjangoGirls/tutorial.git'])
-    Popen(['gitbook', 'install'], cwd='tutorial')
-    Popen(['gitbook', 'build', '.'], cwd='tutorial')
+    
+    install = Popen(['../node_modules/.bin/gitbook', 'install'], cwd='tutorial')
+    install.wait()
+
+    build = Popen(['../node_modules/.bin/gitbook', 'build', '.'], cwd='tutorial')
+    build.wait()
+
     run(['mv', 'tutorial/_book', os.path.join(DOWNLOAD_BASE, 'docs', 'djangogirls')])
     return {
         'name': 'Django Girls Tutorial',

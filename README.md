@@ -10,6 +10,13 @@ There are still online components to the tutorial that will require internet acc
 
 Ensure that you have Python 3, curl, gitbook, gitbook-cli, and git.
 
+```
+sudo apt-get install npm
+sudo apt-get install nodejs-legacy
+sudo npm install yarn
+sudo yarn global add gitbook-cli
+```
+
 You should use a virtualenvironment with Jinja2 and requests.
 
 ```
