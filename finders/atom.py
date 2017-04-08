@@ -7,6 +7,7 @@ def atom():
 
     return [
         ('MacOS', 'https://github.com/atom/atom/releases/download/{}/atom-mac.zip'.format(latest_version), 'atom/atom-mac.zip'),
-        ('Windows', 'https://github.com/atom/atom/releases/download/{}/atom-x64-windows.zip'.format(latest_version), 'atom/atom-x64-windows.zip'),  # noqa
-        ('Ubuntu', 'https://github.com/atom/atom/releases/download/{}/atom-amd64.deb'.format(latest_version), 'atom/atom-amd64.deb')
+        ('Windows (64-bit)', 'https://github.com/atom/atom/releases/download/{}/AtomSetup-x64.exe'.format(latest_version), 'atom/atom-x64-windows.exe'),  # noqa
+        ('Windows (32-bit)', 'https://github.com/atom/atom/releases/download/{}/AtomSetup.exe'.format(latest_version), 'atom/atom-windows.exe'),  # noqa
+        ('Ubuntu', 'https://github.com/atom/atom/releases/download/{}/atom-amd64.deb'.format(latest_version), 'atom/atom-amd64.deb'),
     ]
